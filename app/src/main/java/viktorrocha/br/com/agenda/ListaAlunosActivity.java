@@ -9,6 +9,11 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 
+import java.util.List;
+
+import viktorrocha.br.com.agenda.dao.AlunoDAO;
+import viktorrocha.br.com.agenda.modelo.Aluno;
+
 public class ListaAlunosActivity extends AppCompatActivity {
 
     @Override
@@ -16,21 +21,36 @@ public class ListaAlunosActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_aluno);
 
-        String[] alunos = {"Thais","Gizelly", "Rute", "Marcia","Samona","Yaminny","Dandara","Silvia","Anne","Karol","Iza Hendee","Jhully"};
-        ListView  listaAlunos = findViewById(R.id.lista_alunos);
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, alunos);
 
-        listaAlunos.setAdapter(adapter);
 
-       Button novoAluno =  findViewById(R.id.novo_aluno);
-       novoAluno.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View v) {
-               Intent intentVaiProFormulario = new Intent(ListaAlunosActivity.this, FormularioActivity.class);
-               startActivity(intentVaiProFormulario);
-           }
-       });
+        Button novoAluno = findViewById(R.id.novo_aluno);
+        novoAluno.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intentVaiProFormulario = new Intent(ListaAlunosActivity.this, FormularioActivity.class);
+                startActivity(intentVaiProFormulario);
+            }
+        });
 
     }
+
+    private void carregaLista() {
+        AlunoDAO dao = new AlunoDAO(this);
+        List<Aluno> alunos = dao.buscaAlunos();
+        dao.close();
+
+        ListView listaAlunos = findViewById(R.id.lista_alunos);
+
+        ArrayAdapter<Aluno> adapter = new ArrayAdapter<Aluno>(this, android.R.layout.simple_list_item_1, alunos);
+
+        listaAlunos.setAdapter(adapter);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        carregaLista();
+    }
 }
+
