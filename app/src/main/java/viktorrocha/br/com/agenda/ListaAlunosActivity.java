@@ -22,6 +22,7 @@ import android.widget.Toast;
 import java.util.List;
 import java.util.jar.Manifest;
 
+import viktorrocha.br.com.agenda.adapter.AlunosAdapter;
 import viktorrocha.br.com.agenda.dao.AlunoDAO;
 import viktorrocha.br.com.agenda.modelo.Aluno;
 
@@ -64,7 +65,7 @@ public class ListaAlunosActivity extends AppCompatActivity {
         List<Aluno> alunos = dao.buscaAlunos();
         dao.close();
 
-        ArrayAdapter<Aluno> adapter = new ArrayAdapter<Aluno>(this, android.R.layout.simple_list_item_1, alunos);
+        AlunosAdapter adapter = new AlunosAdapter(this, alunos);
         listaAlunos.setAdapter(adapter);
     }
 
@@ -79,7 +80,7 @@ public class ListaAlunosActivity extends AppCompatActivity {
 
 
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
-      final   Aluno aluno = (Aluno) listaAlunos.getItemAtPosition(info.position);
+         final   Aluno aluno = (Aluno) listaAlunos.getItemAtPosition(info.position);
 
         MenuItem itemLigar = menu.add("Ligar");
         itemLigar.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
