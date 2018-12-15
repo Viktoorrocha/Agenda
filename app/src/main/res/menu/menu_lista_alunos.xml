@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="viktoorrocha.br.com.agenda.FormularioActivity">
 
-    <item android:id="@+id/menu_formulario_ok"
-        android:title="OK"
-        android:icon="@drawable/ic_confirmar"
+    <item android:id="@+id/menu_enviar_notas"
+        android:title="Enviar Notas"
+        android:icon="@drawable/ic_enviar"
         app:showAsAction="always"/>
 </menu>
